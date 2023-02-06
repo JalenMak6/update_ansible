@@ -1,0 +1,11 @@
+---
+ - name: Testing purpose
+   hosts: noob
+   remote_user: jalen
+   become: yes
+   gather_facts: yes
+   ignore_errors: yes
+
+   roles:
+     - all
+     - docker

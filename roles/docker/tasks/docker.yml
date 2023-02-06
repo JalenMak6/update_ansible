@@ -1,0 +1,63 @@
+---
+  - name: Update the apt package index
+    apt:
+      update_cache: yes
+
+  - name: Install Docker dependencies
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+      state: present
+
+  - name: Update the apt package index
+    apt:
+      upgrade: dist
+
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      state: present
+    notify: 
+      - start docker
+
+        #- name: Install Docker Compose
+        #shell: curl -L https://github.com/docker/compose/releases/download/{{ version }}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+        #args:
+        #creates: /usr/local/bin/docker-compose
+
+  - name: Download Docker Compose binary
+    ansible.builtin.uri:
+      url: "https://github.com/docker/compose/releases/download/{{ version }}/docker-compose-{{ kernel }}-{{ machine }}"
+      dest: "/usr/local/bin/docker-compose"
+      mode: 0755
+
+  - name: Set execute permission on Docker Compose
+    file:
+      path: /usr/local/bin/docker-compose
+      mode: a+x
+
+  - name: add user to docker group
+    ansible.builtin.user:
+      name: jalen
+      groups: docker
+      append: yes
+
+  - name: reboot the machine
+    reboot:
+
