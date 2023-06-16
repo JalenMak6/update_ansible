@@ -7,7 +7,7 @@
 
 - name: Copy the docker-compose file to the remote host
   copy:
-    src: /etc/ansible/roles/node_expoorter/templates/docker-compose.yml
+    src: /etc/ansible/roles/node_exporter/templates/docker-compose.yml
     dest: /etc/node_exporter/docker-compose.yml
 
 - name: Deplopy node_exporter on the remote host
