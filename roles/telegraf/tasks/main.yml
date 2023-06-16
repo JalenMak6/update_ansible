@@ -1,2 +1,30 @@
 ---
 # tasks file for telegraf
+ - name: Create a /etc/telegraf directory to remote host
+   file:
+     path: /etc/telegraf
+     state: directory
+     owner: root
+     group: jalen
+     mode: '0775'
+
+ - name: copy shit
+   copy:
+     src: /home/jalen/test.txt
+     dest: /etc/telegraf/test.txt
+
+ - name: Copy the docker-compose file to the remote host
+   copy:
+     src: /etc/ansible/roles/telegraf/templates/docker-compose.yml
+     dest: /etc/telegraf/docker-compose.yml
+
+ - name: Copy the telegraf.conf to the remote host
+   copy:
+     src: /etc/ansible/roles/telegraf/templates/telegraf.conf
+     dest: /etc/telegraf/telegraf.conf
+
+ - name: Deploy Telegraf container on remote host
+   command:
+     cmd: docker-compose up -d
+     chdir: /etc/telegraf
+

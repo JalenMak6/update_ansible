@@ -7,5 +7,6 @@
    ignore_errors: yes
 
    roles:
-     - all
-     - docker
+    # - all
+    # - docker
+     - telegraf
