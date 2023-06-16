@@ -1,5 +1,5 @@
 ---
 # vars file for docker
-version: 2.18.1
+version: 24.0.2
 kernel: Linux
 machine: x86_64 
