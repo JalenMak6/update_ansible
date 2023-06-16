@@ -16,7 +16,7 @@
 
 - name: Copy config node.yml to the destinated directory
   copy: 
-    src: /etc/ansible/roles/prometheuus_grafana/templates/"{{ item }}"
+    src: /etc/ansible/roles/prometheus_grafana/templates/"{{ item }}"
     dest: /etc/prometheus/ "{{ item }}"
   with_items:
     - node.yml
@@ -24,7 +24,7 @@
 
 - name: Copy snmp.yml to the /etc/snmp-exporter
   copy:
-    src: /etc/ansible/roles/prometheuus_grafana/templates/snmp.yml
+    src: /etc/ansible/roles/prometheus_grafana/templates/snmp.yml
     dest: /etc/snmp-exporter/snmp.yml
 
 - name: Deploy containers via docker-compoose
