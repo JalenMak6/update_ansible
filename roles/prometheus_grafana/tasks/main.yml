@@ -4,7 +4,7 @@
   file:
     name: {{ item }}
     state: directory
-  loop:
+  with_items:
     - /etc/prometheus
     - /etc/snmp_exportor
     - /etc/docker-compose
@@ -18,7 +18,7 @@
   copy: 
     src: /etc/ansible/roles/promethues_grafana/templates/{{ item }}
     dest: /etc/prometheus/ {{ item }}
-  loop:
+  with_items:
     - node.yml
     -  prometheus.yml
 
