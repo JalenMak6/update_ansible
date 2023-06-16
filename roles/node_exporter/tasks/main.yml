@@ -11,6 +11,6 @@
     dest: /etc/node_exporter/docker-compose.yml
 
 - name: Deplopy node_exporter on the remote host
-  docker_compose:
-    project_src: /etc/node_exporter/
-    state: present
+  shell:
+     cmd: docker-compose up -d
+     chdir: /etc/node_exporter
