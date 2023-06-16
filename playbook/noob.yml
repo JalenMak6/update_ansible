@@ -7,6 +7,8 @@
    ignore_errors: yes
 
    roles:
-    # - all
-    # - docker
-     - telegraf
+   #  - all
+   #  - docker
+   #  - telegraf
+   #  - node_exporter
+     - prometheus_grafana

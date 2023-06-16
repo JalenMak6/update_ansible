@@ -6,7 +6,6 @@
     state: directory
   with_items:
     - /etc/prometheus
-    - /etc/snmp_exportor
     - /etc/docker-compose
 
 - name: Copy the docker-compse to the /etc/docker-compose
@@ -21,11 +20,6 @@
   with_items:
     - node.yml
     - prometheus.yml
-
-- name: Copy snmp.yml to the /etc/snmp-exporter
-  copy:
-    src: /etc/ansible/roles/prometheus_grafana/templates/snmp.yml
-    dest: /etc/snmp-exporter/snmp.yml
 
 - name: Deploy containers via docker-compoose
   shell: 
