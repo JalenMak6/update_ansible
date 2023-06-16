@@ -42,4 +42,17 @@ scrape_configs:
         #- targets: ['192.168.1.90:8088']
         #- targets: ['192.168.1.100:8080']
         # - targets: ['192.168.1.7:8088']
+<<<<<<< HEAD
         #
+=======
+
+  - job_name: 'snmp'
+    static_configs:
+      - targets:
+        - 192.168.1.253  # SNMP device.
+      labels:
+        job: 'wordpress'
+    metrics_path: /snmp
+    params:
+      module: [if_mib]
+>>>>>>> 78008bbde8471a852a22292a84d747c8680b540a
