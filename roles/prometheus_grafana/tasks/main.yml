@@ -11,7 +11,7 @@
 
 - name: Copy the docker-compse to the /etc/docker-compose
   copy:
-    src: /etc/ansible/roles/prometheuus_grafana/templates/docker-compose.yml
+    src: /etc/ansible/roles/prometheus_grafana/templates/docker-compose.yml
     dest: /etc/docker-compose/docker-compose.yml
 
 - name: Copy config node.yml to the destinated directory
