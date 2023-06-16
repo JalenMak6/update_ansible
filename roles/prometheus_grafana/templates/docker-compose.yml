@@ -1,0 +1,77 @@
+version: "3.8"
+  
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9000:9090"
+    volumes:
+      - /etc/prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    restart: always
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: always
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    ports:
+      - "9100:9100"
+    pid: host
+    restart: always
+    volumes:
+      - '/:/host:ro,rslave'
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+  
+  cadvisor:
+    image:  gcr.io/cadvisor/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    command:
+      - '--store_container_labels=false'
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+  snmp:
+    image: prom/snmp-exporter
+    container_name: snmp-exporter
+    volumes:
+      - /etc/snmp-exporter:/etc/snmp_exporter
+    ports:
+      - 9116:9116
+      - 116:116/udp
+    restart: always
+    command: --config.file=/etc/snmp_exporter/snmp.yml

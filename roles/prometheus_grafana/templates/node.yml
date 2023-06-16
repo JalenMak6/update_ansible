@@ -1,0 +1,23 @@
+- targets: ['192.168.1.180:9100']
+  labels:
+    instance: 'Prometheus Server'
+
+- targets: ['192.168.1.110:9100']
+  labels:
+    instance: 'AD-Guard'
+
+- targets: ['192.168.1.183:9100']
+  labels:
+    instance: 'Docker Server'
+
+- targets: ['192.168.1.230:9100']
+  labels:
+    instance: 'Movie-Server'
+
+- targets: ['192.168.1.237:9100']
+  labels:
+    instance: 'Test-Ubuntu-Server'
+
+- targets: ['192.168.1.199:9100']
+  labels:
+    instance: 'Happy-Zone'

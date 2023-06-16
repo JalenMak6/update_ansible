@@ -1,2 +1,33 @@
 ---
 # tasks file for prometheus_grafana
+- name: create folders
+  file:
+    name: {{ item }}
+    state: directory
+  loop:
+    - /etc/prometheus
+    - /etc/snmp_exportor
+    - /etc/docker-compose
+
+- name: Copy the docker-compse to the /etc/docker-compose
+  copy:
+    src: /etc/ansible/roles/promethues_grafana/templates/docker-compose.yml
+    dest: /etc/docker-compose/docker-compose.yml
+
+- name: Copy config node.yml to the destinated directory
+  copy: 
+    src: /etc/ansible/roles/promethues_grafana/templates/{{ item }}
+    dest: /etc/prometheus/ {{ item }}
+  loop:
+    - node.yml
+    -  prometheus.yml
+
+- name: Copy snmp.yml to the /etc/snmp-exporter
+  copy:
+    src: /etc/ansible/roles/promethues_grafana/templates/snmp.yml
+    dest: /etc/snmp-exporter/snmp.yml
+
+- name: Deploy containers via docker-compoose
+  shell: 
+     cmd: docker-compose up -d
+     chdir: /etc/docker-compose
