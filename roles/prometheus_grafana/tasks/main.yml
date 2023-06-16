@@ -16,8 +16,8 @@
 
 - name: Copy config node.yml to the destinated directory
   copy: 
-    src: /etc/ansible/roles/prometheus_grafana/templates/"{{ item }}"
-    dest: /etc/prometheus/"{{ item }}"
+    src: /etc/ansible/roles/prometheus_grafana/templates/{{ item }}
+    dest: /etc/prometheus/{{ item }}
   with_items:
     - node.yml
     - prometheus.yml
