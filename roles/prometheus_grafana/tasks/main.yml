@@ -20,7 +20,7 @@
     dest: /etc/prometheus/ "{{ item }}"
   with_items:
     - node.yml
-    -  prometheus.yml
+    - prometheus.yml
 
 - name: Copy snmp.yml to the /etc/snmp-exporter
   copy:
