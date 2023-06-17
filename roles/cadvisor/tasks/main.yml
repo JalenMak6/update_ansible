@@ -1,2 +1,17 @@
 ---
 # tasks file for cadvisor
+
+- name: Create a docker-compose directory
+  file:
+    name: /etc/docker-compose
+    state: directory
+
+- name: Copy docker-compose file to the remote host
+  copy:
+    src: /etc/ansible/roles/cadvisor/templates/docker-compose.yml
+    dest: /etc/docker-compose/docker-compose.yml
+
+- name: Deploy Cadvisor exporter to the remote host
+  shell:
+    cmd: docker-compose up -d
+    chdir: /etc/docker-compose  
