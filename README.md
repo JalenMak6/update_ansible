@@ -139,5 +139,3 @@
 ├── templates
 │   └── testing.j2
 └── test.txt
-
-67 directories, 73 files
