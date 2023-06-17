@@ -136,7 +136,8 @@
 │       │   └── test.yml
 │       └── vars
 │           └── main.yml
-└── templates
-    └── testing.j2
+├── templates
+│   └── testing.j2
+└── test.txt
 
-67 directories, 72 files
+67 directories, 73 files
